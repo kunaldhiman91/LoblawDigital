@@ -37,13 +37,11 @@ class LDContentFetcher: NSObject {
         let session = URLSession.shared
         
         let task = session.dataTask(with: request!) { (data, response, error) in
+            
             // Check if request returns an error.
             if let localError = error as NSError? {
                 
                 switch localError.code {
-                    
-                case 404:
-                    completionHandler(.failure(LDRequestError.encountered404))
                     
                 default:
                     completionHandler(.failure(LDRequestError.otherError(errorCode: localError.code)))
@@ -53,8 +51,18 @@ class LDContentFetcher: NSObject {
             }
             
             // Request does not return error.
-            if let localData = data {
-                completionHandler(.success(localData))
+            if let localData = data, let urlResponse = response as? HTTPURLResponse {
+                
+                switch urlResponse.statusCode {
+                    
+                case 200...399:
+                    completionHandler(.success(localData))
+                case 404:
+                     completionHandler(.failure(LDRequestError.encountered404))
+                default:
+                    completionHandler(.failure(LDRequestError.otherError(errorCode: urlResponse.statusCode)))
+                    
+                }
             }
         }
         task.resume()
