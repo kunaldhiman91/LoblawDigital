@@ -22,16 +22,15 @@ class NetworkRequestBuilder: RequestBuilder {
     func buildURLRequest<T: LDURLBuilder>(withURL url: T, andParameters parameters: [String: String]) throws -> URLRequest {
         
         var components = URLComponents()
+        components.scheme = url.httpMethod.rawValue
+        components.host = NetworkConstant.baseURL
+        components.path = url.endPoint
         
         var queryItems = [URLQueryItem]()
         for key in parameters.keys.sorted() {
             guard let param = parameters[key] else { continue }
             queryItems.append(URLQueryItem(name: key, value: param))
         }
-        
-        components.scheme = url.httpMethod.rawValue
-        components.host = NetworkConstant.baseURL
-        components.path = url.endPoint
         components.queryItems = queryItems
         
         guard let localUrl = components.url else {
@@ -40,8 +39,11 @@ class NetworkRequestBuilder: RequestBuilder {
             throw BuilderError.unableBuildURL(message: "query item \(errorMessage)")
         }
         
-        return URLRequest(url: localUrl,
+        var request = URLRequest(url: localUrl,
                           cachePolicy: URLRequest.CachePolicy.reloadRevalidatingCacheData,
                           timeoutInterval: 30)
+        request.httpMethod = url.httpMethod.rawValue
+        
+        return request
     }
 }

@@ -35,14 +35,11 @@ extension LDServiceRequest {
         var request: URLRequest?
         
         do {
-            
             request = try requestBuilder.buildURLRequest(withURL: self,
                                                          andParameters: parameters)
-            
         } catch (let error as BuilderError) {
-            
+            completionHandler(false, nil)
             throw error
-            
         }
         
         LDContentFetcher.shared.requestContent(request: request!) { (result) in

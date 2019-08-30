@@ -26,7 +26,7 @@ class LDContentFetcher: NSObject {
      - Throws: `LDRequestError`
      */
     
-//     shared Instance of LDContentFetcher.
+    // shared Instance of LDContentFetcher.
     static let shared = LDContentFetcher()
     
     private override init() {}
