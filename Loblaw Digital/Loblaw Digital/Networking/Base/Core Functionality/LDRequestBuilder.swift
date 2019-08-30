@@ -20,10 +20,6 @@ public enum BuilderError: Error {
 class NetworkRequestBuilder: RequestBuilder {
     
     func buildURLRequest<T: LDURLBuilder>(withURL url: T, andParameters parameters: [String: String]) throws -> URLRequest {
-        let requestUrl = URL(string:NetworkConstant.baseURL.absoluteString + url.endPoint)!
-//        guard var components = URLComponents() else {
-//                                                throw BuilderError.unableToResolveURL(requestUrl)
-//        }
         
         var components = URLComponents()
         
@@ -34,7 +30,7 @@ class NetworkRequestBuilder: RequestBuilder {
         }
         
         components.scheme = url.httpMethod.rawValue
-        components.host = NetworkConstant.baseURL.absoluteString
+        components.host = NetworkConstant.baseURL
         components.path = url.endPoint
         components.queryItems = queryItems
         

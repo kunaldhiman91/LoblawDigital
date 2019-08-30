@@ -23,7 +23,6 @@ extension LDServiceRequest {
     
     func requestData(completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void {
         
-//        try LDServiceRequest.self.requestData(withParameters: [:], completionHandler: completionHandler)
         try self.requestData(withParameters: [:], completionHandler: completionHandler)
         
     }
