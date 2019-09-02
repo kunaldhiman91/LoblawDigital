@@ -8,18 +8,20 @@
 
 import Foundation
 
-class LDHomeServiceRequest: LDServiceRequest { }
+class LDHomeServiceRequest: LDServiceRequest {
+}
 
 extension LDHomeServiceRequest {
     var endPoint: String {
         return "/r/swift/.json"
     }
     
-    var httpMethod: LDHttpMethod {
+    var httpMethod: LDHttpMethod? {
         return .https
     }
     
-    var requestType: LDRequestType {
+    var requestType: LDRequestType? {
         return .GET
     }
+    
 }

@@ -9,7 +9,10 @@
 import Foundation
 
 protocol RequestBuilder {
-    func buildURLRequest<T: LDURLBuilder>(withURL url: T, andParameters parameters: [String: String]) throws -> URLRequest
+    
+    func buildURLRequest(withURL url: URL) -> URLRequest
+    
+    func buildURLRequest<T: LDURLBuilder>(withURLBuilder urlBuilder: T, andParameters parameters: [String: String]) throws -> URLRequest
 }
 
 public enum BuilderError: Error {
@@ -18,13 +21,24 @@ public enum BuilderError: Error {
 }
 
 class NetworkRequestBuilder: RequestBuilder {
+
+    func buildURLRequest(withURL url: URL) -> URLRequest {
+        
+        return URLRequest(url: url,
+                          cachePolicy: URLRequest.CachePolicy.reloadRevalidatingCacheData,
+                          timeoutInterval: 30)
+        
+    }
     
-    func buildURLRequest<T: LDURLBuilder>(withURL url: T, andParameters parameters: [String: String]) throws -> URLRequest {
+    func buildURLRequest<T: LDURLBuilder>(withURLBuilder urlBuilder: T, andParameters parameters: [String: String]) throws -> URLRequest {
         
         var components = URLComponents()
-        components.scheme = url.httpMethod.rawValue
+        if let httpMethod = urlBuilder.httpMethod {
+            components.scheme = httpMethod.rawValue
+        }
+        
         components.host = NetworkConstant.baseURL
-        components.path = url.endPoint
+        components.path = urlBuilder.endPoint
         
         var queryItems = [URLQueryItem]()
         for key in parameters.keys.sorted() {

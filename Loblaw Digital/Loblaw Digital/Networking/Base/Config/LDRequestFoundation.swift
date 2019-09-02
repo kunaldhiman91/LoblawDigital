@@ -13,10 +13,10 @@ protocol LDURLBuilder {
     var endPoint: String { get }
     
     // Http Method to be used.
-    var httpMethod: LDHttpMethod { get }
+    var httpMethod: LDHttpMethod? { get }
     
     // http method for communication. eg. PUT, POST, DELETE, GET
-    var requestType: LDRequestType { get }
+    var requestType: LDRequestType? { get }
     
 }
 

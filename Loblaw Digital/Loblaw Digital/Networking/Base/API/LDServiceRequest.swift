@@ -8,44 +8,58 @@
 
 import UIKit
 
-typealias serviceRequestCompletionHandler = (Bool, Data?) -> Void
+typealias serviceRequestCompletionHandler = (Decodable?) -> Void
 
 protocol LDServiceRequest: LDURLBuilder {
     
-    func requestData(completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void
+    func requestData<model: Decodable>(model m: model.Type,
+                                       completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void
     
-    func requestData(withParameters parameters: [String: String],
-                                      completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void
+    func requestData<model: Decodable>(withParameters parameters: [String: String],
+                                       model m:  model.Type,
+                                       completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void
     
 }
 
 extension LDServiceRequest {
     
-    func requestData(completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void {
+    func requestData<model: Decodable>(model m: model.Type,
+                                       completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void {
         
-        try self.requestData(withParameters: [:], completionHandler: completionHandler)
+        try self.requestData(withParameters: [:],
+                             model: m.self,
+                             completionHandler: completionHandler)
         
     }
     
-    func requestData(withParameters parameters: [String: String],
-                            completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void {
+    func requestData<model: Decodable>(withParameters parameters: [String: String],
+                                       model m:  model.Type,
+                                       completionHandler: @escaping serviceRequestCompletionHandler) throws -> Void {
         
         let requestBuilder: NetworkRequestBuilder = NetworkRequestBuilder()
         
         var request: URLRequest?
         
         do {
-            request = try requestBuilder.buildURLRequest(withURL: self,
+            request = try requestBuilder.buildURLRequest(withURLBuilder: self,
                                                          andParameters: parameters)
         } catch (let error as BuilderError) {
-            completionHandler(false, nil)
+            completionHandler(nil)
             throw error
         }
         
         LDContentFetcher.shared.requestContent(request: request!) { (result) in
             switch result {
             case .success(let data):
-                completionHandler(true, data)
+                
+                do {
+                    let decodedModel = try JSONDecoder().decode(LDDataObject.self, from: data)
+                    completionHandler(decodedModel)
+                } catch (let error) {
+                    print(error.localizedDescription)
+                    completionHandler(nil)
+                }
+                
             case .failure(let error):
                 
                 let title = "Sorry"
@@ -62,12 +76,12 @@ extension LDServiceRequest {
                     message = "Unable to complete the request. Request error encountered - \(errorCode)"
                     
                 }
-                completionHandler(false, nil)
+                completionHandler(nil)
                 
                 DispatchQueue.main.async {
                     
                     guard let appDel = UIApplication.shared.delegate, let window = appDel.window, let rootVC = window?.rootViewController else {
-                        completionHandler(false, nil)
+                        completionHandler(nil)
                         return
                     }
                     
