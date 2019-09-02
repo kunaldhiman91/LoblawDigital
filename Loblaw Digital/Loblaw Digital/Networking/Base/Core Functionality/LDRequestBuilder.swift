@@ -3,18 +3,20 @@
 //  Loblaw Digital
 //
 //  Created by Kunal Kumar on 2019-08-28.
-//  Copyright © 2019 Loblaw. All rights reserved.
+//  Copyright © 2019 Kunal Kumar. All rights reserved.
 //
 
 import Foundation
 
+/// Protocol to design a new URL Request.
 protocol RequestBuilder {
-    
+    /// Building a request with a URL
     func buildURLRequest(withURL url: URL) -> URLRequest
-    
+    /// Building a request with a LDURLBuilder and parameters.
     func buildURLRequest<T: LDURLBuilder>(withURLBuilder urlBuilder: T, andParameters parameters: [String: String]) throws -> URLRequest
 }
 
+/// Error thrown during request building.
 public enum BuilderError: Error {
     case unableToResolveURL(URL)
     case unableBuildURL(message: String)
@@ -22,6 +24,14 @@ public enum BuilderError: Error {
 
 class NetworkRequestBuilder: RequestBuilder {
 
+    /**
+     Building a request with a URL
+     
+     - Parameters:
+     - url: The URL for the request.
+     
+     - Returns: URLRequest.
+     */
     func buildURLRequest(withURL url: URL) -> URLRequest {
         
         return URLRequest(url: url,
@@ -30,6 +40,14 @@ class NetworkRequestBuilder: RequestBuilder {
         
     }
     
+    /**
+     Building a request with a LDURLBuilder and parameters.
+     
+     - Parameters:
+     - withURLBuilder: The type conforming to LDURLBuilder.
+     - andParameters: The parameters for request.
+     - Returns: URLRequest.
+     */
     func buildURLRequest<T: LDURLBuilder>(withURLBuilder urlBuilder: T, andParameters parameters: [String: String]) throws -> URLRequest {
         
         var components = URLComponents()

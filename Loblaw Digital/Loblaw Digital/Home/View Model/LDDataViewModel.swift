@@ -3,18 +3,18 @@
 //  Loblaw Digital
 //
 //  Created by Kunal Kumar on 2019-09-02.
-//  Copyright © 2019 Loblaw. All rights reserved.
+//  Copyright © 2019 Kunal Kumar. All rights reserved.
 //
 
 import Foundation
 import UIKit.UIImage
 
-class LDDataViewModel: NSObject, LDNewsFeedCellViewModeling {
+/// This class holds the data of each news node.
+final class LDDataViewModel: LDNewsFeedCellViewModeling {
     
-    private var data :ChildData
+    // MARK: Public Properties
     
-    private var imageFetcher: LDImageFetcher = LDImageFetcher()
-    
+    /// The Title of Swift News.
     var title: String? {
         if let title = self.data.title {
             return title
@@ -22,6 +22,7 @@ class LDDataViewModel: NSObject, LDNewsFeedCellViewModeling {
         return nil
     }
     
+    /// The subTitle/details of Swift News.
     var subTitle: String? {
         if let subTitle = self.data.selftext {
             return subTitle
@@ -29,6 +30,7 @@ class LDDataViewModel: NSObject, LDNewsFeedCellViewModeling {
         return nil
     }
     
+    /// Bool indicating whether image is available or not.
     var shouldHideImage: Bool {
         
         if let urlString = self.data.thumbnail, let url = URL(string: urlString), url.isValidURL() {
@@ -37,22 +39,35 @@ class LDDataViewModel: NSObject, LDNewsFeedCellViewModeling {
         return true
     }
     
-    init(data: ChildData) {
+    // MARK: Private Properties
+    private var data :SwiftNewsDataNode
+    
+    private var imageFetcher: LDImageFetcher = LDImageFetcher()
+    
+    // MARK: Initialiser
+    init(data: SwiftNewsDataNode) {
         self.data = data
     }
    
+    // MARK: Public methods
+    
+    /**
+     Fetch image for news feed from backend.
+     
+     - Parameters:
+     - completion: completion block providing image in the completion block.
+     
+     - Returns: Void.
+     */
     func fetchImage(completion: @escaping ((UIImage?) -> Void)) {
-
         if self.shouldHideImage {
             completion(nil)
             return
         }
-        
         guard let urlString = self.data.thumbnail, let url = URL(string: urlString) else {
             completion(nil)
             return
         }
-        
         self.imageFetcher.fetchImage(url: url) { (result) in
             switch result {
             case .success (let image):
@@ -63,12 +78,4 @@ class LDDataViewModel: NSObject, LDNewsFeedCellViewModeling {
             }
         }
     }
-}
-
-extension LDDataViewModel {
-    
-    override var description: String {
-        return "title = \(String(describing: self.title)) + thumbnqail = \(String(describing: self.data.thumbnail))"
-    }
-    
 }

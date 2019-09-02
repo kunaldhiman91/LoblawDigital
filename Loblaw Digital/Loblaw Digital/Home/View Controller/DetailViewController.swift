@@ -3,13 +3,14 @@
 //  Loblaw Digital
 //
 //  Created by Kunal Kumar on 2019-09-02.
-//  Copyright © 2019 Loblaw. All rights reserved.
+//  Copyright © 2019 Kunal Kumar. All rights reserved.
 //
 
 import UIKit
 
+/// LDDetailViewController: Displaying image, title and subtitle for selected Swift news.
 class LDDetailViewController: UIViewController {
-    
+    // MARK: IBOutlets
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var informationView: UIView! {
@@ -22,13 +23,16 @@ class LDDetailViewController: UIViewController {
     
     @IBOutlet weak var subTitleLabel: UILabel!
     
+    // MARK: Properties
     var dataModel: LDDataViewModel?
     
+    // MARK: ViewController Life Cycles.
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
     }
     
+    // MARK: Private Methods.
     func configureUI() {
         
         if let title = self.dataModel?.title {
@@ -44,7 +48,6 @@ class LDDetailViewController: UIViewController {
         }
         
         _ = self.dataModel?.fetchImage(completion: { image in
-            
             performOnMain {
                 guard let _image = image else {
                     self.imageView.removeFromSuperview()
@@ -53,7 +56,6 @@ class LDDetailViewController: UIViewController {
                 self.imageView.image = _image
             }
         })
-        
+        self.view.layoutIfNeeded()
     }
-    
 }

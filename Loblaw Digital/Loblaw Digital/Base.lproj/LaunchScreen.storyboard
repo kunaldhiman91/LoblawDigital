@@ -17,16 +17,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-OH-bkh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="695" placeholderIntrinsicHeight="363" text="Loblaws Digital" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MVE-PD-lRF">
+                                <rect key="frame" x="0.0" y="271.5" width="414" height="363"/>
+                                <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="72"/>
+                                <color key="textColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="0ht-OH-bkh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="8In-jG-Kie"/>
-                            <constraint firstItem="0ht-OH-bkh" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Cn7-Ts-Nsz"/>
-                            <constraint firstItem="0ht-OH-bkh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CyH-cm-2Q2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0ht-OH-bkh" secondAttribute="bottom" id="VvK-wT-BlO"/>
+                            <constraint firstItem="MVE-PD-lRF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="U0P-QE-sP5"/>
+                            <constraint firstItem="MVE-PD-lRF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="UAc-6m-mtE"/>
+                            <constraint firstItem="MVE-PD-lRF" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="X94-Wx-07C"/>
+                            <constraint firstItem="MVE-PD-lRF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="zIF-SJ-04o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -36,7 +39,4 @@
             <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="LaunchImage" width="1024" height="1024"/>
-    </resources>
 </document>

@@ -3,13 +3,13 @@
 //  Loblaw Digital
 //
 //  Created by Kunal Kumar on 2019-08-29.
-//  Copyright © 2019 Loblaw. All rights reserved.
+//  Copyright © 2019 Kunal Kumar. All rights reserved.
 //
 
 import Foundation
 
-class LDHomeServiceRequest: LDServiceRequest {
-}
+/// Home Service Request for getting Swift News Feed.
+class LDHomeServiceRequest: LDServiceRequest {}
 
 extension LDHomeServiceRequest {
     var endPoint: String {
@@ -23,5 +23,4 @@ extension LDHomeServiceRequest {
     var requestType: LDRequestType? {
         return .GET
     }
-    
 }

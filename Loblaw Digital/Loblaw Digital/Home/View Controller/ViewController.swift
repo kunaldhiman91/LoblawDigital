@@ -3,13 +3,15 @@
 //  Loblaw Digital
 //
 //  Created by Kunal Kumar on 2019-08-28.
-//  Copyright © 2019 Loblaw. All rights reserved.
+//  Copyright © 2019 Kunal Kumar. All rights reserved.
 //
 
 import UIKit
 
+/// ViewController handling displaing of Swift News Feed.
 class ViewController: UIViewController {
     
+    // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -23,30 +25,29 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: Properties
     private var newsArray: [LDDataViewModel]?
     
+    // MARK: ViewController Life Cycles.
     override func viewDidLoad() {
         super.viewDidLoad()
-        testNetworkCall()
+        self.fetchSwiftNews()
         self.title = "Swift News"
-        // Do any additional setup after loading the view.
     }
     
-    
-    func testNetworkCall() {
-        
-        let vm = LDHomeViewModel()
-        vm.fetchNewsDetails {
-            self.newsArray = vm.data
-            
-            DispatchQueue.main.async {
-                 self.tableView.reloadData()
+    // MARK: Private Methods.
+    private func fetchSwiftNews() {
+        let viewModel = LDHomeViewModel()
+        viewModel.fetchNewsDetails {
+            self.newsArray = viewModel.data
+            performOnMain {
+                self.tableView.reloadData()
             }
         }
-        
     }
 }
 
+// MARK: UITableViewDelegate Methods.
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -62,6 +63,7 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+// MARK: UITableViewDataSource Methods.
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let _newsArray = newsArray else {
@@ -74,21 +76,13 @@ extension ViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LDNewsFeedCell.identifier, for: indexPath) as? LDNewsFeedCell else {
             let cell = LDNewsFeedCell()
             if let newsArray = self.newsArray {
-                cell.viewModel = newsArray[indexPath.row]
-                cell.setupTableViewCell()
+                cell.setupTableViewCell(viewModel: newsArray[indexPath.row])
             }
             return cell
         }
-        
         if let newsArray = self.newsArray {
-            cell.viewModel = newsArray[indexPath.row]
-            cell.setupTableViewCell()
+            cell.setupTableViewCell(viewModel: newsArray[indexPath.row])
         }
-        
         return cell
-        
     }
-    
-    
-    
 }

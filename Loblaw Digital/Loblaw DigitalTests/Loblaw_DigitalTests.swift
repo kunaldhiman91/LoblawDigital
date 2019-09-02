@@ -3,7 +3,7 @@
 //  Loblaw DigitalTests
 //
 //  Created by Kunal Kumar on 2019-08-28.
-//  Copyright © 2019 Loblaw. All rights reserved.
+//  Copyright © 2019 Kunal Kumar. All rights reserved.
 //
 
 import XCTest
