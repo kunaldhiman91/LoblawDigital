@@ -58,12 +58,14 @@ class NetworkRequestBuilder: RequestBuilder {
         components.host = NetworkConstant.baseURL
         components.path = urlBuilder.endPoint
         
-        var queryItems = [URLQueryItem]()
-        for key in parameters.keys.sorted() {
-            guard let param = parameters[key] else { continue }
-            queryItems.append(URLQueryItem(name: key, value: param))
+        if parameters.count > 0 {
+            var queryItems = [URLQueryItem]()
+            for key in parameters.keys.sorted() {
+                guard let param = parameters[key] else { continue }
+                queryItems.append(URLQueryItem(name: key, value: param))
+            }
+            components.queryItems = queryItems
         }
-        components.queryItems = queryItems
         
         guard let localUrl = components.url else {
             let errorMessage = components.queryItems?.map { String(describing: $0) }.joined(separator: ", ") ?? ""

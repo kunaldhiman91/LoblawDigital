@@ -27,6 +27,10 @@ class LDNewsFeedCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView! {
         didSet {
             self.containerView.layer.cornerRadius = 8
+            self.containerView.layer.shadowColor = UIColor.black.cgColor
+            self.containerView.layer.shadowOpacity = 0.6
+            self.containerView.layer.shadowOffset = .zero
+            self.containerView.layer.shadowRadius = 1
         }
     }
     
@@ -37,6 +41,11 @@ class LDNewsFeedCell: UITableViewCell {
     @IBOutlet private weak var newsTitleLabel: UILabel!
     
     @IBOutlet private var imageViewConstraints: [NSLayoutConstraint]!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.layoutIfNeeded()
+    }
     
     // MARK: Public methods
     
@@ -52,6 +61,7 @@ class LDNewsFeedCell: UITableViewCell {
         guard let viewModel = model else { return }
         self.viewModel = viewModel
         self.newsTitleLabel.text = viewModel.title ?? ""
+        print(viewModel.title)
         viewModel.fetchImage(completion: { image in
             performOnMain {
                 guard let _image = image else {

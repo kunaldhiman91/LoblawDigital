@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6Ti-Vk-b37">
-                                <rect key="frame" x="0.0" y="72" width="414" height="656"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="520"/>
                                 <color key="backgroundColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="sectionIndexColor" red="0.43047841390000002" green="0.59366455740000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -82,11 +82,11 @@
                                                         </constraints>
                                                     </view>
                                                     <view verifyAmbiguity="ignoreSizes" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1z-IC-RFC">
-                                                        <rect key="frame" x="16" y="332" width="382" height="36.333333333333314"/>
+                                                        <rect key="frame" x="16" y="332" width="382" height="40"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="F2T-xi-95d">
-                                                                <rect key="frame" x="8" y="7.9999999999999982" width="366" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="18"/>
+                                                                <rect key="frame" x="8" y="8" width="366" height="24"/>
+                                                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>

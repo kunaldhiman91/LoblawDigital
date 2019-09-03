@@ -16,6 +16,10 @@ class LDDetailViewController: UIViewController {
     @IBOutlet weak var informationView: UIView! {
         didSet {
             self.informationView.layer.cornerRadius = 8
+            self.informationView.layer.shadowColor = UIColor.black.cgColor
+            self.informationView.layer.shadowOpacity = 0.6
+            self.informationView.layer.shadowOffset = .zero
+            self.informationView.layer.shadowRadius = 1
         }
     }
     @IBOutlet weak var contentView: UIView!
