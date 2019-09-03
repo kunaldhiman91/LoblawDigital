@@ -21,8 +21,15 @@ protocol LDNewsFeedCellViewModeling {
     func fetchImage(completion: @escaping ((UIImage?) -> Void))
 }
 
+protocol LDNewsFeedCellImageDownload {
+    var imageDownloaded: (Bool) -> Void { get }
+}
+
 /// News Feed Cell.
-class LDNewsFeedCell: UITableViewCell {
+class LDNewsFeedCell: UITableViewCell, LDNewsFeedCellImageDownload {
+    
+    var imageDownloaded: (Bool) -> Void = { _ in }
+    
     // MARK: IBOutlets
     @IBOutlet weak var containerView: UIView! {
         didSet {
@@ -61,13 +68,13 @@ class LDNewsFeedCell: UITableViewCell {
         guard let viewModel = model else { return }
         self.viewModel = viewModel
         self.newsTitleLabel.text = viewModel.title ?? ""
-        print(viewModel.title)
         viewModel.fetchImage(completion: { image in
             performOnMain {
                 guard let _image = image else {
                     self.removeImage(true)
                     return
                 }
+                self.imageDownloaded(true)
                 self.newsImageView.image = _image
                 self.removeImage(viewModel.shouldHideImage)
             }
