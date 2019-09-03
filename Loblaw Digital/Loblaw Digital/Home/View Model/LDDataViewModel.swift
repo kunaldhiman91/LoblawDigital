@@ -42,7 +42,7 @@ final class LDDataViewModel: LDNewsFeedCellViewModeling {
     // MARK: Private Properties
     private var data :SwiftNewsDataNode
     
-    private var imageFetcher: LDImageFetcher = LDImageFetcher()
+    private static let imageFetcher: LDImageFetcher = LDImageFetcher()
     
     // MARK: Initialiser
     init(data: SwiftNewsDataNode) {
@@ -68,7 +68,7 @@ final class LDDataViewModel: LDNewsFeedCellViewModeling {
             completion(nil)
             return
         }
-        self.imageFetcher.fetchImage(url: url) { (result) in
+        LDDataViewModel.imageFetcher.fetchImage(url: url) { (result) in
             switch result {
             case .success (let image):
                 completion(image)

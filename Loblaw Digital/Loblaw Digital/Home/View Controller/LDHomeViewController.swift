@@ -19,7 +19,7 @@ class ViewController: UIViewController {
             self.tableView.dataSource = self
             self.tableView.register(LDNewsFeedCell.nib,
                                     forCellReuseIdentifier: LDNewsFeedCell.identifier)
-            self.tableView.estimatedRowHeight = 100
+            self.tableView.estimatedRowHeight = 600
             self.tableView.rowHeight = UITableView.automaticDimension
         }
         
@@ -83,6 +83,11 @@ extension ViewController: UITableViewDataSource {
         if let newsArray = self.newsArray {
             cell.setupTableViewCell(viewModel: newsArray[indexPath.row])
         }
+        cell.layoutIfNeeded()
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.layoutIfNeeded()
     }
 }

@@ -71,9 +71,13 @@ class NetworkRequestBuilder: RequestBuilder {
             throw BuilderError.unableBuildURL(message: "query item \(errorMessage)")
         }
         
-        return URLRequest(url: localUrl,
-                          cachePolicy: URLRequest.CachePolicy.reloadRevalidatingCacheData,
-                          timeoutInterval: 30)
+        var urlrequest = URLRequest(url: localUrl,
+                                    cachePolicy: URLRequest.CachePolicy.reloadRevalidatingCacheData,
+                                    timeoutInterval: 30)
+        if let requestType = urlBuilder.requestType {
+            urlrequest.httpMethod = requestType.rawValue
+        }
+        return urlrequest
         
     }
 }

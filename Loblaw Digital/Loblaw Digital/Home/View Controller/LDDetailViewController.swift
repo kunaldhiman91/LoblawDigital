@@ -18,10 +18,15 @@ class LDDetailViewController: UIViewController {
             self.informationView.layer.cornerRadius = 8
         }
     }
-    
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var subTitleLabel: UILabel!
+    
+    @IBOutlet weak var imageViewPlaceHolderView: UIView!
+    
+    @IBOutlet var imageViewPlaceHolderViewConstraints: [NSLayoutConstraint]!
+    
+    @IBOutlet var informationViewConstraints: [NSLayoutConstraint]!
     
     // MARK: Properties
     var dataModel: LDDataViewModel?
@@ -36,21 +41,23 @@ class LDDetailViewController: UIViewController {
     func configureUI() {
         
         if let title = self.dataModel?.title {
-            self.titleLabel.text = title
-        } else {
-            self.titleLabel.removeFromSuperview()
+            self.title = title
         }
         
-        if let subTitle = self.dataModel?.subTitle {
+        if let subTitle = self.dataModel?.subTitle, subTitle.count > 0 {
             self.subTitleLabel.text = subTitle
         } else {
-            self.subTitleLabel.removeFromSuperview()
+            self.informationView.removeFromSuperview()
+        self.contentView.removeConstraints(self.informationViewConstraints)
+            self.contentView.layoutIfNeeded()
         }
         
         _ = self.dataModel?.fetchImage(completion: { image in
             performOnMain {
                 guard let _image = image else {
                     self.imageView.removeFromSuperview()
+                    self.contentView.removeConstraints(self.imageViewPlaceHolderViewConstraints)
+                    self.contentView.layoutIfNeeded()
                     return
                 }
                 self.imageView.image = _image
