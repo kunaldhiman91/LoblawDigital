@@ -39,6 +39,8 @@ final class LDDataViewModel: LDNewsFeedCellViewModeling {
         return true
     }
     
+    var thumbnail: UIImage?
+    
     // MARK: Private Properties
     private var data :SwiftNewsDataNode
     
@@ -60,6 +62,12 @@ final class LDDataViewModel: LDNewsFeedCellViewModeling {
      - Returns: Void.
      */
     func fetchImage(completion: @escaping ((UIImage?) -> Void)) {
+        
+        if let thumbnail = self.thumbnail {
+            completion(thumbnail)
+            return
+        }
+        
         if self.shouldHideImage {
             completion(nil)
             return
@@ -71,6 +79,7 @@ final class LDDataViewModel: LDNewsFeedCellViewModeling {
         LDDataViewModel.imageFetcher.fetchImage(url: url) { (result) in
             switch result {
             case .success (let image):
+                self.thumbnail = image
                 completion(image)
             case .failure(let error):
                 print(error.localizedDescription)

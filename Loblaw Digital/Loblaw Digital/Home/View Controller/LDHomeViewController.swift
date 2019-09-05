@@ -83,13 +83,6 @@ extension ViewController: UITableViewDataSource {
         if let newsArray = self.newsArray {
             cell.setupTableViewCell(viewModel: newsArray[indexPath.row])
         }
-        cell.imageDownloaded = { isImagePresent in
-            if isImagePresent {
-                self.tableView.beginUpdates()
-                self.tableView.reloadRows(at: [indexPath], with: .none)
-                self.tableView.endUpdates()
-            }
-        }
         
         return cell
     }

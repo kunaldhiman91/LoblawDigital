@@ -17,6 +17,8 @@ protocol LDNewsFeedCellViewModeling {
     // Show/Hide image view based on data response.
     var shouldHideImage: Bool { get }
     
+    var thumbnail: UIImage? { get }
+    
     // Provide a way to load images.
     func fetchImage(completion: @escaping ((UIImage?) -> Void))
 }
@@ -40,6 +42,9 @@ class LDNewsFeedCell: UITableViewCell, LDNewsFeedCellImageDownload {
             self.containerView.layer.shadowRadius = 1
         }
     }
+    
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: LDNewsFeedCellViewModeling?
     
@@ -65,20 +70,32 @@ class LDNewsFeedCell: UITableViewCell, LDNewsFeedCellImageDownload {
      - Returns: Void.
     */
     func setupTableViewCell(viewModel model: LDNewsFeedCellViewModeling?) {
+        if !self.activityIndicator.isHidden {
+            self.activityIndicator.startAnimating()
+        }
         guard let viewModel = model else { return }
         self.viewModel = viewModel
         self.newsTitleLabel.text = viewModel.title ?? ""
-        viewModel.fetchImage(completion: { image in
-            performOnMain {
-                guard let _image = image else {
-                    self.removeImage(true)
-                    return
+        
+        if let image = viewModel.thumbnail {
+            self.newsImageView.image = image
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+        } else {
+            viewModel.fetchImage(completion: { image in
+                performOnMain {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    guard let _image = image else {
+                        self.removeImage(true)
+                        return
+                    }
+                    self.imageDownloaded(true)
+                    self.newsImageView.image = _image
                 }
-                self.imageDownloaded(true)
-                self.newsImageView.image = _image
-                self.removeImage(viewModel.shouldHideImage)
-            }
-        })
+            })
+        }
+        self.removeImage(viewModel.shouldHideImage)
     }
     
     // MARK: Private methods
