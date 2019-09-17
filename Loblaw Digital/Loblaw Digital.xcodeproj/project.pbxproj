@@ -732,7 +732,7 @@
 				5F7D5DF523174CC70082F590 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5F7D5DF623174CC70082F590 /* Build configuration list for PBXNativeTarget "Loblaw Digital" */ = {
 			isa = XCConfigurationList;
@@ -741,7 +741,7 @@
 				5F7D5DF823174CC70082F590 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5F7D5DF923174CC70082F590 /* Build configuration list for PBXNativeTarget "Loblaw DigitalTests" */ = {
 			isa = XCConfigurationList;
@@ -750,7 +750,7 @@
 				5F7D5DFB23174CC70082F590 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5F7D5DFC23174CC70082F590 /* Build configuration list for PBXNativeTarget "Loblaw DigitalUITests" */ = {
 			isa = XCConfigurationList;
@@ -759,7 +759,7 @@
 				5F7D5DFE23174CC70082F590 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
