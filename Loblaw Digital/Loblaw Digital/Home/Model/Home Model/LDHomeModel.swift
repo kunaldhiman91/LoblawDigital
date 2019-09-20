@@ -11,7 +11,7 @@ import Foundation
 // MARK: LDDataObject
 struct LDDataObject: Decodable {
     let kind: String?
-    let data: LDData
+    let data: LDData 
 }
 
 // MARK: LDData
