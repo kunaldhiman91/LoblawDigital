@@ -15,10 +15,12 @@ final class LDHomeViewModel: NSObject {
     // Data Object that contains news data object. - readonly
     private (set) var newsDataObject: LDDataObject?
     
+    let newsRequest = LDHomeServiceRequest()
+    
     // MARK: Properties
     
     /// data containing all the news feed.
-    var data: [LDDataViewModel]?
+    var data: [LDDataViewModel] = [LDDataViewModel]()
 
     // MARK: Public methods
     
@@ -32,22 +34,32 @@ final class LDHomeViewModel: NSObject {
      */
     
     func fetchNewsDetails(completion: @escaping () -> Void) {
+    
         
-        let newsRequest = LDHomeServiceRequest()
         do {
-            try newsRequest.requestData(model: LDDataObject.self,
+            var requestParams: [String: String] = [:]
+            if let localNewsData = self.newsDataObject, let afterHash = localNewsData.data.after {
+                requestParams["after"] = afterHash
+            }
+
+            try newsRequest.requestData(withParameters: requestParams,
+                                        model: LDDataObject.self,
                                         completionHandler: { (model) in
                                             guard let _model = model else {
-                                                print("Error: Couldn't decode data")
-                                                return
-                                            }
-                                            
-                                            self.newsDataObject = _model as? LDDataObject
-                                            self.data = self.newsDataObject?.data.children.map({ (child) in
-                                                return LDDataViewModel(data: child.data)
-                                            })
-                                            completion()
-                                            
+                                                                                           print("Error: Couldn't decode data")
+                                                                                           return
+                                                                                       }
+                                                                                       
+                                                                                       self.newsDataObject = _model as? LDDataObject
+                                                                                       let newNewsFeed = self.newsDataObject?.data.children.map({ (child) in
+                                                                                           return LDDataViewModel(data: child.data)
+                                                                                       })
+                                                                                       
+                                                                                       if let localNewNewsFeed = newNewsFeed {
+                                                                                            self.data.append(contentsOf: localNewNewsFeed)
+                                                                                       }
+                                                                                      
+                                                                                       completion()
             })
         } catch (let error){
             print(error.localizedDescription)

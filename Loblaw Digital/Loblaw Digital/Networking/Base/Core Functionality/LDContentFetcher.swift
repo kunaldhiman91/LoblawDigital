@@ -10,7 +10,11 @@ import Foundation
 
 typealias completionHandler = (Result<Data, LDRequestError>) -> Void
 
-class LDContentFetcher: NSObject {
+protocol ContentFetcherProtocol {
+    func requestContent(request: URLRequest?, completionHandler: @escaping completionHandler)
+}
+
+class LDContentFetcher: NSObject, ContentFetcherProtocol {
     
     // MARK: Public methods
     

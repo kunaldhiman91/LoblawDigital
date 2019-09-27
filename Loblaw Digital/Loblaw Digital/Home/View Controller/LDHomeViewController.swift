@@ -11,6 +11,8 @@ import UIKit
 /// ViewController handling displaing of Swift News Feed.
 class ViewController: UIViewController {
     
+    let viewModel = LDHomeViewModel()
+    
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView! {
         
@@ -37,9 +39,8 @@ class ViewController: UIViewController {
     
     // MARK: Private Methods.
     private func fetchSwiftNews() {
-        let viewModel = LDHomeViewModel()
-        viewModel.fetchNewsDetails {
-            self.newsArray = viewModel.data
+        self.viewModel.fetchNewsDetails {
+            self.newsArray = self.viewModel.data
             performOnMain {
                 self.tableView.reloadData()
             }
@@ -81,6 +82,10 @@ extension ViewController: UITableViewDataSource {
             return cell
         }
         if let newsArray = self.newsArray {
+            
+            if indexPath.row == newsArray.count - 1 {
+                self.fetchSwiftNews()
+            }
             cell.setupTableViewCell(viewModel: newsArray[indexPath.row])
         }
         

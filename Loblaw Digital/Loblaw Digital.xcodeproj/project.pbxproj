@@ -28,6 +28,7 @@
 		5F7D5E242319E5420082F590 /* LDImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7D5E232319E5420082F590 /* LDImageFetcher.swift */; };
 		5F7D5E262319EFE00082F590 /* threadUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7D5E252319EFE00082F590 /* threadUtil.swift */; };
 		5F7D5E28231CF31A0082F590 /* LDDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7D5E27231CF31A0082F590 /* LDDataViewModel.swift */; };
+		5F8FAFA2233E8DF200C1FC60 /* ContentFetcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8FAFA1233E8DF200C1FC60 /* ContentFetcherTest.swift */; };
 		5FD2C867231D66A900FA7730 /* URL+Validity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD2C866231D66A900FA7730 /* URL+Validity.swift */; };
 		5FD2C869231D6AB600FA7730 /* LDDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD2C868231D6AB600FA7730 /* LDDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,7 @@
 		5F7D5E232319E5420082F590 /* LDImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDImageFetcher.swift; sourceTree = "<group>"; };
 		5F7D5E252319EFE00082F590 /* threadUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = threadUtil.swift; sourceTree = "<group>"; };
 		5F7D5E27231CF31A0082F590 /* LDDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDDataViewModel.swift; sourceTree = "<group>"; };
+		5F8FAFA1233E8DF200C1FC60 /* ContentFetcherTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFetcherTest.swift; sourceTree = "<group>"; };
 		5FD2C866231D66A900FA7730 /* URL+Validity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Validity.swift"; sourceTree = "<group>"; };
 		5FD2C868231D6AB600FA7730 /* LDDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 			children = (
 				5F7D5DE623174CC70082F590 /* Loblaw_DigitalTests.swift */,
 				5F7D5DE823174CC70082F590 /* Info.plist */,
+				5F8FAFA1233E8DF200C1FC60 /* ContentFetcherTest.swift */,
 			);
 			path = "Loblaw DigitalTests";
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F7D5DE723174CC70082F590 /* Loblaw_DigitalTests.swift in Sources */,
+				5F8FAFA2233E8DF200C1FC60 /* ContentFetcherTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
